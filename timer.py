@@ -66,3 +66,17 @@ class FocusTimer:
                 self.on_complete()   # call the success callback
         else:
             self.is_running = False  # Timer was stopped early
+        
+    ## Effects: Get the current progress as a percentage (0-100)
+    def get_progress_percentage(self):
+        if self.total_time == 0:
+            return 100
+        return ((self.total_time - self.remaining_time) / self.total_time) * 100
+    
+    ## Effects: Get remaining time in minutes (rounded up)
+    def get_remaining_minutes(self):
+        return (self.remaining_time + 59) // 60
+    
+    ## Effects: Get elapsed time in minutes
+    def get_elapsed_minutes(self):
+        return (self.total_time - self.remaining_time) // 60
