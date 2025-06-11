@@ -7,7 +7,7 @@ class XPSystem:
         self.user_level = 1
         self.enemy_level = 1
 
-    ## Results: Calculate total XP needed to reach a specific level with 
+    ## Effects: Calculate total XP needed to reach a specific level with 
     ## formula: XP needed = (level - 1) * 30
     def get_xp_for_level(self, level):
         if level <= 1:
@@ -17,14 +17,14 @@ class XPSystem:
     def get_xp_for_next_level(self, current_level):
         return self.get_xp_for_level(current_level + 1) - self.get_xp_for_level(current_level)
     
-    ## Results: Calculate level based on total xp
+    ## Effects: Calculate level based on total xp
     def calculate_level(self, total_xp):
         if total_xp < 0:
             return 1
         # Level = floor(total_xp / 30) + 1
         return min(99, math.floor(total_xp / 30) + 1)  # Cap at level 99
     
-    ## Results: Add user xp and return True if user has leveled up
+    ## Effects: Add user xp and return True if user has leveled up
     def add_user_xp(self, amount):
         if amount <= 0:
             return
@@ -35,7 +35,7 @@ class XPSystem:
         
         return self.user_level > old_level  
     
-    ## Results: Add enemy xp and return True if enemy has leveled up
+    ## Effects: Add enemy xp and return True if enemy has leveled up
     def add_enemy_xp(self, amount):
         if amount <= 0:
             return
@@ -46,7 +46,7 @@ class XPSystem:
         
         return self.enemy_level > old_level  
     
-    ## Results: Get user stats dictionary
+    ## Effects: Get user stats dictionary
     def get_user_stats(self):
         current_level_xp = self.get_xp_for_level(self.user_level)
         next_level_xp = self.get_xp_for_level(self.user_level + 1)
@@ -61,7 +61,7 @@ class XPSystem:
             'progress_percentage': (xp_in_current_level / xp_needed_for_next) * 100 if xp_needed_for_next > 0 else 100
         }
     
-    ## Results: Get enemy stats dictionary
+    ## Effects: Get enemy stats dictionary
     def get_enemy_stats(self):
         current_level_xp = self.get_xp_for_level(self.enemy_level)
         next_level_xp = self.get_xp_for_level(self.enemy_level + 1)
@@ -75,9 +75,8 @@ class XPSystem:
             'xp_needed_for_next': xp_needed_for_next,
             'progress_percentage': (xp_in_current_level / xp_needed_for_next) * 100 if xp_needed_for_next > 0 else 100
         }
-    
 
-    ## Results: Get data to save to file
+    ## Effects: Get data to save to file
     def get_save_data(self):
         return {
             'user_xp': self.user_xp,
@@ -86,7 +85,7 @@ class XPSystem:
             'enemy_level': self.enemy_level
         }
     
-    ## Results: Load data from save file
+    ## Effects: Load data from save file
     def load_data(self, data):
         try:
             self.user_xp = data.get('user_xp', 0)
